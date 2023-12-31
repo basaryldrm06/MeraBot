@@ -7,7 +7,7 @@ from config import coin_precision, tp_percentage, sl_percentage, test_mode
 
 def enter_long(client):
     account_balance = get_account_balance(client)
-    coin_amount = convert_usdt_to_coin(client, "ETHUSDT", account_balance) * (95 / 100)
+    coin_amount = convert_usdt_to_coin(client, "ETHUSDT", account_balance * (95 / 100)) 
     coin_price = fetch_price(client, "ETHUSDT")
 
     tp_price = float(round(coin_price * (1 + tp_percentage), coin_precision))
@@ -22,7 +22,7 @@ def enter_long(client):
 
 def enter_short(client):
     account_balance = get_account_balance(client)
-    coin_amount = convert_usdt_to_coin(client, "ETHUSDT", account_balance) * (95 / 100)
+    coin_amount = convert_usdt_to_coin(client, "ETHUSDT", account_balance * (95 / 100)) 
     coin_price = fetch_price(client, "ETHUSDT")
     
     tp_price = float(round(coin_price * (1 - tp_percentage), coin_precision))
