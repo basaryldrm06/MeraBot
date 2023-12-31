@@ -4,7 +4,7 @@ from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 import warnings
 
-def predict_state(file_path, indicatorObject):
+def predict_state_scikit(file_path, indicatorObject):
     try:
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
@@ -17,7 +17,6 @@ def predict_state(file_path, indicatorObject):
                     f"macd_{i}_12", f"macd_{i}_26",
                     f"ema_{i}_100", f"rsi_{i}_6"
                 ])
-
 
             X = df[columns]
             y = df['state']
