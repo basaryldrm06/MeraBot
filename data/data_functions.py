@@ -14,8 +14,8 @@ def save_new_row(file_path, state, indicator_array):
         writer = csv.writer(file)
         writer.writerow(row)
 
-def save_log(file_path, date, position_type, scikit_prediction, status):
-    row = [date, position_type, scikit_prediction, status]
+def save_log(file_path, date, position_type, scikit_prediction, tensor_prediction, pytorch_prediction, vote_result, status):
+    row = [date, position_type, scikit_prediction, tensor_prediction, pytorch_prediction, status]
     with open(file_path, 'a', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(row)
