@@ -1,7 +1,7 @@
-from rsi import fetch_RSI
-from ema import fetch_EMA
-from macd import fetch_MACD
-from price import fetch_price
+from indicators.rsi import fetch_RSI
+from indicators.ema import fetch_EMA
+from indicators.macd import fetch_MACD
+from indicators.price import fetch_price
 
 interval = "15m"
 symbol = "ETHUSDT"
