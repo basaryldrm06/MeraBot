@@ -2,3 +2,5 @@ talib
 pandas
 csv
 sklearn
+tensorflow
+torch

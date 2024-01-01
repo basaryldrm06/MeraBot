@@ -1,4 +1,4 @@
-from account_utilities import get_account_balance, convert_usdt_to_coin, enter_position, place_tp_order, place_sl_order
+from binanceAPI.account_utilities import get_account_balance, convert_usdt_to_coin, enter_position, place_tp_order, place_sl_order
 import sys
 import os 
 sys.path.append(os.path.abspath(os.path.join(os.path.dirname(__file__), '..')))
