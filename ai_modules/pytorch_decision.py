@@ -35,20 +35,12 @@ def predict_state_pytorch(file_path, date, current_price, macd_12, macd_26, ema_
 
             X = df[columns].values
 
-            # Standardize the features
             scaler = StandardScaler()
             X_scaled = scaler.fit_transform(X)
 
-            # Convert NumPy arrays to PyTorch tensors
             X_tensor = torch.tensor(X_scaled, dtype=torch.float32)
-
-            # Build the PyTorch model
             model = SimpleModel(input_size=X.shape[1])
 
-            # Load trained weights if available
-            # model.load_state_dict(torch.load('model_weights.pth'))
-
-            # Prepare the features for prediction
             features = [date, current_price, macd_12, macd_26, ema_100, rsi_6]
             for i in range(15): 
                 features.append(list[i][0])
@@ -56,15 +48,12 @@ def predict_state_pytorch(file_path, date, current_price, macd_12, macd_26, ema_
                 features.append(list[i][2])
                 features.append(list[i][3])
 
-            # Standardize the features for prediction
             features_scaled = scaler.transform([features])
             features_tensor = torch.tensor(features_scaled, dtype=torch.float32)
 
-            # Make predictions
             predicted_prob = model(features_tensor).item()
 
-            # Convert probability to state (assuming a threshold of 0.5)
-            predicted_state = 1 if predicted_prob >= 0.5 else 0
+            predicted_state = "LONG" if predicted_prob >= 0.5 else "SHORT"
 
             return predicted_state
 

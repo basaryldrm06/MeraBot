@@ -1,5 +1,6 @@
 from indicators.fetch_all_indicators import fetch_all_indicators
 from indicators.IndicatorData import IndicatorData
+from indicators.bar_prices import get_historical_data
 from time import sleep
 from binanceAPI.position_utilities import enter_long, enter_short
 from data.data_functions import save_new_row, save_log
@@ -37,13 +38,6 @@ def close_position(index, state, file_path):
     position_types[index] = None
     save_new_row(file_path, state, indicator_array)
 
-def modify_global_array(new_element):
-    global indicator_object_array
-    indicator_object_array.insert(0, new_element)
-    
-    if len(indicator_object_array) >= 1351:
-        del indicator_object_array[1350]
-
 def get_current_date_string(format="%Y-%m-%d %H:%M:%S"):
     current_date = datetime.datetime.now()
     date_string = current_date.strftime(format)
@@ -53,25 +47,28 @@ def get_current_date_string(format="%Y-%m-%d %H:%M:%S"):
 current_price, macd_12, macd_26, rsi_6, ema_100 = fetch_all_indicators(client)
 if (macd_12 > macd_26) and (macd_12 < 0):
     do_not_enter_long[0] = True
+    print("LONG 0 is blocked")
 elif (macd_12 > macd_26) and (macd_26 > 0):
     do_not_enter_long[1] = True
+    print("LONG 1 is blocked")
 elif (macd_12 < macd_26) and (macd_12 > 0):
     do_not_enter_short[0] = True
+    print("SHORT 0 is blocked")
 elif (macd_12 < macd_26) and (macd_26 < 0):
     do_not_enter_short[1] = True
+    print("SHORT 1 is blocked")
 
 # MAIN ALGORITHM
 while True:
     current_price, macd_12, macd_26, rsi_6, ema_100 = fetch_all_indicators(client)
     date = get_current_date_string()
-    print("Line 69")
-    io_utilities.print_position_message(date, current_price, macd_12, macd_26, rsi_6, ema_100, "LONG")
 
     if position_types[0] == None:
         if (not do_not_enter_long[0]) and (macd_12 > macd_26) and (macd_12 < 0) and (rsi_6 > 50) and (current_price < ema_100):
             do_not_enter_short[0] = False
             do_not_enter_long[0] = True
-            scikit_predictions[0], tensorflow_predictions[0], pytorch_predictions[0], vote_results[0] = vote("./data/dataset-mera-1.csv", date, current_price, macd_12, macd_26, ema_100, rsi_6, list)
+            indicator_array = get_historical_data(client)
+            scikit_predictions[0], tensorflow_predictions[0], pytorch_predictions[0], vote_results[0] = vote("./data/dataset-mera-1.csv", date, current_price, macd_12, macd_26, ema_100, rsi_6, indicator_array)
             position_types[0] = "LONG"
             io_utilities.print_position_message(date, current_price, macd_12, macd_26, rsi_6, ema_100, "LONG")
             if vote_results[0] == "LONG":
@@ -80,7 +77,7 @@ while True:
         elif (not do_not_enter_short[0]) and (macd_12 < macd_26) and (macd_12 > 0) and (rsi_6 < 50) and (current_price > ema_100):
             do_not_enter_long[0] = False
             do_not_enter_short[0] = True
-            scikit_predictions[0], tensorflow_predictions[0], pytorch_predictions[0], vote_results[0] = vote("./data/dataset-mera-1.csv", date, current_price, macd_12, macd_26, ema_100, rsi_6, list)
+            scikit_predictions[0], tensorflow_predictions[0], pytorch_predictions[0], vote_results[0] = vote("./data/dataset-mera-1.csv", date, current_price, macd_12, macd_26, ema_100, rsi_6, indicator_array)
             position_types[0] = "SHORT"
             io_utilities.print_position_message(date, current_price, macd_12, macd_26, rsi_6, ema_100, "SHORT")
             if vote_results[0] == "SHORT":
@@ -89,7 +86,7 @@ while True:
         if (not do_not_enter_long[1]) and (macd_12 > macd_26) and (macd_26 > 0) and (rsi_6 > 50) and (current_price > ema_100):
             do_not_enter_short[1] = False
             do_not_enter_long[1] = True
-            scikit_predictions[1], tensorflow_predictions[1], pytorch_predictions[1], vote_results[1] = vote("./data/dataset-mera-2.csv", date, current_price, macd_12, macd_26, ema_100, rsi_6, list)
+            scikit_predictions[1], tensorflow_predictions[1], pytorch_predictions[1], vote_results[1] = vote("./data/dataset-mera-2.csv", date, current_price, macd_12, macd_26, ema_100, rsi_6, indicator_array)
             position_types[1] = "LONG"
             io_utilities.print_position_message(date, current_price, macd_12, macd_26, rsi_6, ema_100, "LONG")
             if vote_results[1] == "LONG":
@@ -97,7 +94,7 @@ while True:
         elif (not do_not_enter_short[1]) and (macd_12 < macd_26) and (macd_26 < 0) and (rsi_6 < 50) and (current_price < ema_100):
             do_not_enter_long[1] = False
             do_not_enter_short[1] = True
-            scikit_predictions[1], tensorflow_predictions[1], pytorch_predictions[1], vote_results[1] = vote("./data/dataset-mera-2.csv", date, current_price, macd_12, macd_26, ema_100, rsi_6, list)
+            scikit_predictions[1], tensorflow_predictions[1], pytorch_predictions[1], vote_results[1] = vote("./data/dataset-mera-2.csv", date, current_price, macd_12, macd_26, ema_100, rsi_6, indicator_array)
             position_types[1] = "SHORT"
             io_utilities.print_position_message(date, current_price, macd_12, macd_26, rsi_6, ema_100, "SHORT")
             if vote_results[1] == "SHORT":
