@@ -2,11 +2,11 @@ from ai_modules.scikit_decision import predict_state_scikit
 from ai_modules.tensorflow_decision import predict_state_tensorflow
 from ai_modules.pytorch_decision import predict_state_pytorch
 
-def vote(file_path, indicatorObject): 
+def vote(file_path, date, current_price, macd_12, macd_26, ema_100, rsi_6, list):
     count = 0
-    scikit_result = predict_state_scikit(file_path, indicatorObject)
-    tensorflow_result = predict_state_tensorflow(file_path, indicatorObject)
-    pytorch_result = predict_state_pytorch(file_path, indicatorObject)
+    scikit_result = predict_state_scikit(file_path, date, current_price, macd_12, macd_26, ema_100, rsi_6, list)
+    tensorflow_result = predict_state_tensorflow(file_path, date, current_price, macd_12, macd_26, ema_100, rsi_6, list)
+    pytorch_result = predict_state_pytorch(file_path, date, current_price, macd_12, macd_26, ema_100, rsi_6, list)
     
     if scikit_result == "LONG":
         count = count + 1
