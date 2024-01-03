@@ -15,9 +15,8 @@ def fetch_all_indicators(client):
     macd_12, macd_26 = fetch_MACD(client, symbol, 12, 26, interval)
     ema_100 = fetch_EMA(client, symbol, 100, interval)
     rsi_6 = fetch_RSI(client, symbol, 6, interval)
-    bar_list = get_historical_data(client)
 
-    indicatorDataObj = IndicatorData(date, current_price, macd_12, macd_26, ema_100, rsi_6, bar_list)
+    indicatorDataObj = IndicatorData(date, current_price, macd_12, macd_26, ema_100, rsi_6)
 
     return indicatorDataObj
 

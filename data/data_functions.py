@@ -1,21 +1,19 @@
 import csv
 
-def save_new_row(file_path, state, indicator_array):
-    row = [state]
-    for i in range(15):
-        row.append(indicator_array[i * 15].date)
-        row.append(indicator_array[i * 15].price)
-        row.append(indicator_array[i * 15].macd_12)
-        row.append(indicator_array[i * 15].macd_26)
-        row.append(indicator_array[i * 15].ema_100)
-        row.append(indicator_array[i * 15].rsi_6)
-
+def save_position_infos(file_path, state, indicatorDataObj):
+    row = [state, indicatorDataObj.date, indicatorDataObj.price, indicatorDataObj.macd_12,
+           indicatorDataObj.macd_26, indicatorDataObj.ema_100, indicatorDataObj.rsi_6]
+    
+    for bar in indicatorDataObj.bar_list:
+        for element in bar:
+            row.append(element)
+        
     with open(file_path, 'a', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(row)
 
-def save_log(file_path, date, position_type, scikit_prediction, tensor_prediction, pytorch_prediction, vote_result, status):
-    row = [date, position_type, scikit_prediction, tensor_prediction, pytorch_prediction, status]
+def save_position_result(file_path, date, position_result, vote_result, scikit_prediction, pytorch_prediction, tensor_prediction):
+    row = [date, position_result, vote_result, scikit_prediction, pytorch_prediction, tensor_prediction]
     with open(file_path, 'a', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(row)
