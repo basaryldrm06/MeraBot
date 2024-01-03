@@ -45,31 +45,33 @@ while True:
     indicatorDataObj = fetch_all_indicators(client)
     date = get_current_date_string()
 
-    if position_types[0] == None:
-        if (not do_not_enter_long[0]) and (macd_12 > macd_26) and \
-          (macd_12 < 0) and (rsi_6 > 50) and (current_price < ema_100):
-            do_not_enter_short[0] = False
-            do_not_enter_long[0] = True
+    if (not do_not_enter_long[0]) and (macd_12 > macd_26) and \
+      (macd_12 < 0) and (rsi_6 > 50) and (current_price < ema_100):
+        do_not_enter_short[0] = False
+        do_not_enter_long[0] = True
+        if position_types[0] == None:  
             tp_prices[0], sl_prices[0] = enter_long(client)
             print_position_message(indicatorDataObj, "LONG")
-        elif (not do_not_enter_short[0]) and (macd_12 < macd_26) and \
-          (macd_12 > 0) and (rsi_6 < 50) and (current_price > ema_100):
-            do_not_enter_long[0] = False
-            do_not_enter_short[0] = True
+    elif (not do_not_enter_short[0]) and (macd_12 < macd_26) and \
+      (macd_12 > 0) and (rsi_6 < 50) and (current_price > ema_100):
+        do_not_enter_long[0] = False
+        do_not_enter_short[0] = True
+        if position_types[0] == None:
             tp_prices[0], sl_prices[0] = enter_short(client)
             print_position_message(indicatorDataObj, "SHORT")
 
-    if position_types[1] == None:
-        if (not do_not_enter_long[1]) and (macd_12 > macd_26) and \
-          (macd_26 > 0) and (rsi_6 > 50) and (current_price > ema_100):
-            do_not_enter_short[1] = False
-            do_not_enter_long[1] = True
+    if (not do_not_enter_long[1]) and (macd_12 > macd_26) and \
+      (macd_26 > 0) and (rsi_6 > 50) and (current_price > ema_100):
+        do_not_enter_short[1] = False
+        do_not_enter_long[1] = True
+        if position_types[1] == None:
             tp_prices[1], sl_prices[1] = enter_long(client)
             print_position_message(indicatorDataObj, "LONG")
-        elif (not do_not_enter_short[1]) and (macd_12 < macd_26) and \
-          (macd_26 < 0) and (rsi_6 < 50) and (current_price < ema_100):
-            do_not_enter_long[1] = False
-            do_not_enter_short[1] = True
+    elif (not do_not_enter_short[1]) and (macd_12 < macd_26) and \
+      (macd_26 < 0) and (rsi_6 < 50) and (current_price < ema_100):
+        do_not_enter_long[1] = False
+        do_not_enter_short[1] = True
+        if position_types[1] == None:
             tp_prices[1], sl_prices[1] = enter_short(client)
             print_position_message(indicatorDataObj, "SHORT")
 
