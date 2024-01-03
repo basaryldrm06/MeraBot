@@ -3,7 +3,7 @@ import pandas as pd
 import tensorflow as tf
 import warnings
 
-def predict_state_tensorflow(file_path, date, current_price, macd_12, macd_26, ema_100, rsi_6, list):
+def predict_state_tensorflow(file_path, indicatorDataObj):
     try:
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
@@ -27,12 +27,12 @@ def predict_state_tensorflow(file_path, date, current_price, macd_12, macd_26, e
             model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
             model.fit(X, y, epochs=10, batch_size=32, verbose=0)
 
-            features = [date, current_price, macd_12, macd_26, ema_100, rsi_6]
-            for i in range(15): 
-                features.append(list[i][0])
-                features.append(list[i][1])
-                features.append(list[i][2])
-                features.append(list[i][3])
+            features = [indicatorDataObj.date, indicatorDataObj.price, 
+                        indicatorDataObj.macd_12, indicatorDataObj.macd_26, 
+                        indicatorDataObj.ema_100, indicatorDataObj.rsi_6]
+            for bar in indicatorDataObj.bar_list:
+                for element in bar: 
+                    features.append(element)
 
             features = np.array([features])
 

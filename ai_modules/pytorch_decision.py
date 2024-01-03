@@ -20,7 +20,7 @@ class SimpleModel(nn.Module):
         x = self.sigmoid(x)
         return x
 
-def predict_state_pytorch(file_path, date, current_price, macd_12, macd_26, ema_100, rsi_6, list):
+def predict_state_pytorch(file_path, indicatorDataObj):
     try:
         with warnings.catch_warnings():
             warnings.simplefilter("ignore")
@@ -41,13 +41,13 @@ def predict_state_pytorch(file_path, date, current_price, macd_12, macd_26, ema_
             X_tensor = torch.tensor(X_scaled, dtype=torch.float32)
             model = SimpleModel(input_size=X.shape[1])
 
-            features = [date, current_price, macd_12, macd_26, ema_100, rsi_6]
-            for i in range(15): 
-                features.append(list[i][0])
-                features.append(list[i][1])
-                features.append(list[i][2])
-                features.append(list[i][3])
-
+            features = [indicatorDataObj.date, indicatorDataObj.price, 
+                        indicatorDataObj.macd_12, indicatorDataObj.macd_26, 
+                        indicatorDataObj.ema_100, indicatorDataObj.rsi_6]
+            for bar in indicatorDataObj.bar_list:
+                for element in bar: 
+                    features.append(element)
+                
             features_scaled = scaler.transform([features])
             features_tensor = torch.tensor(features_scaled, dtype=torch.float32)
 
