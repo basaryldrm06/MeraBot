@@ -1,6 +1,7 @@
 from binance.client import Client
 from config import api_key, secret_key
 from indicators.fetch_all_indicators import fetch_all_indicators
+from data.io_utilities import get_current_date_string
 
 # BinanceAPI Connection
 client = Client(api_key, secret_key)
@@ -19,7 +20,7 @@ rsi_6 = 0
 # Greeting Message
 print("Program successfully started")
 
-# INITIALIZATION
+# Initialization
 current_price, macd_12, macd_26, rsi_6, ema_100 = fetch_all_indicators(client)
 if (macd_12 > macd_26) and (macd_12 < 0):
     do_not_enter_long[0] = True
@@ -33,3 +34,10 @@ elif (macd_12 < macd_26) and (macd_12 > 0):
 elif (macd_12 < macd_26) and (macd_26 < 0):
     do_not_enter_short[1] = True
     print("SHORT 1 is blocked")
+
+# Main Algorithm
+while True:
+    current_price, macd_12, macd_26, rsi_6, ema_100 = fetch_all_indicators(client)
+    date = get_current_date_string()
+
+    sleep(10)
