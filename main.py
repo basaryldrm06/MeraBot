@@ -98,7 +98,7 @@ while True:
 
         if (not do_not_enter_long[1]) and (indicatorDataObj[2].macd_12 > indicatorDataObj[2].macd_26) and \
           (indicatorDataObj[2].macd_26 > 0) and (indicatorDataObj[2].rsi_6 > 50) and \
-          (indicatorDataObj[2].current_price > indicatorDataObj[2].ema_100):
+          (indicatorDataObj[2].price > indicatorDataObj[2].ema_100):
             do_not_enter_short[1] = False
             do_not_enter_long[1] = True
             if position_types[1] == None:

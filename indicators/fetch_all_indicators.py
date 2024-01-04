@@ -11,12 +11,12 @@ symbol = "ETHUSDT"
 
 def fetch_all_indicators(client):
     date = get_current_date_string()
-    current_price = fetch_price(client, "ETHUSDT")
+    price = fetch_price(client, "ETHUSDT")
     macd_12, macd_26 = fetch_MACD(client, symbol, 12, 26, interval)
     ema_100 = fetch_EMA(client, symbol, 100, interval)
     rsi_6 = fetch_RSI(client, symbol, 6, interval)
 
-    indicatorDataObj = IndicatorData(date, current_price, macd_12, macd_26, ema_100, rsi_6)
+    indicatorDataObj = IndicatorData(date, price, macd_12, macd_26, ema_100, rsi_6)
 
     return indicatorDataObj
 
