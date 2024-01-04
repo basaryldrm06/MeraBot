@@ -1,6 +1,6 @@
 # API settings
-api_key = ''
-secret_key = ''
+api_key = '85w2IAzK1Ypt5P1jnZAtaSnAZkdOQfLOAy3Ac398xaR7IeA77UGupqiNFMp6YXn2'
+secret_key = 'VE78XjBXUuv9Dr4lMEt6v6YDYs0SZrwphClIDpkzjqOOryWPUygk0krAaHp2HbiF'
 
 # position settings
 symbol = "ETHUSDT"
@@ -10,9 +10,9 @@ sl_percentage = 0.0040
 leverage = 1
 
 # email settings
-email_sender = ''
-email_password = ''
-email_receiver = ''
+email_sender = 'tradingtraffic31@gmail.com'
+email_password = 'zxvvtqkpmdpogecl'
+email_receiver = 'basaryldrm06@gmail.com'
 
 # other settings
 test_mode = True
