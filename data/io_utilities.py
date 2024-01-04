@@ -2,7 +2,7 @@ import datetime
 
 def print_position_message(indicatorDataObj, position, is_pseudo):
     print("DATE: " + str(indicatorDataObj.date) + 
-          " PRICE: " + str(indicatorDataObj.current_price) + 
+          " PRICE: " + str(indicatorDataObj.price) + 
           " MACD_12: " + str(indicatorDataObj.macd_12) + 
           " MACD_26: " + str(indicatorDataObj.macd_26) + 
           " EMA_100: " + str(indicatorDataObj.ema_100) + 
