@@ -5,8 +5,8 @@ secret_key = ''
 # position settings
 symbol = "ETHUSDT"
 coin_precision = 2
-tp_percentage = 0.0040
-sl_percentage = 0.0040
+tp_percentage = 0.0050
+sl_percentage = 0.0050
 leverage = 1
 
 # other settings
