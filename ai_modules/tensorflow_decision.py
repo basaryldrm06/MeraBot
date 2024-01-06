@@ -19,13 +19,16 @@ def predict_state_tensorflow(file_path, indicatorDataObj):
             X = df[columns].values
             y = df['state'].values
 
+            # One-hot encode the labels
+            y_onehot = tf.keras.utils.to_categorical(y, num_classes=2)
+
             model = tf.keras.Sequential([
                 tf.keras.layers.Dense(64, activation='relu', input_shape=(X.shape[1],)),
-                tf.keras.layers.Dense(1, activation='sigmoid')
+                tf.keras.layers.Dense(2, activation='softmax')  # Two classes for binary classification
             ])
 
-            model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
-            model.fit(X, y, epochs=10, batch_size=32, verbose=0)
+            model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
+            model.fit(X, y_onehot, epochs=10, batch_size=32, verbose=0)
 
             features = [indicatorDataObj.date, indicatorDataObj.price, 
                         indicatorDataObj.macd_12, indicatorDataObj.macd_26, 
@@ -36,7 +39,7 @@ def predict_state_tensorflow(file_path, indicatorDataObj):
 
             features = np.array([features])
 
-            predicted_prob = model.predict(features)[0, 0]
+            predicted_prob = model.predict(features)[0, 1]  # Probability for the "LONG" class
             predicted_state = "LONG" if predicted_prob >= 0.5 else "SHORT"
 
             return predicted_state
