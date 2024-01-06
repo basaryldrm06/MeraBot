@@ -137,14 +137,14 @@ while True:
                     handle_position_closure(0)
                     save_position_infos("./data/dataset-mera-0.csv", "LONG", indicatorDataObj[0])
                     save_position_result(".data/result-mera-0.csv", indicatorDataObj[0].date , "LONG", 
-                                        overall_predictions[0], scikit_predictions[0], 
+                                        position_types[0], overall_predictions[0], scikit_predictions[0], 
                                         pytorch_predictions[0], tensorflow_predictions[0])
                 elif indicatorDataObj[2].price < sl_prices[0]:
                     print("Your Position (LONG 0) is closed with SL")
                     handle_position_closure(0)
                     save_position_infos("./data/dataset-mera-0.csv", "SHORT", indicatorDataObj[0])
                     save_position_result("./data/result-mera-0.csv", indicatorDataObj[0].date , "SHORT", 
-                                        overall_predictions[0], scikit_predictions[0], 
+                                        position_types[0], overall_predictions[0], scikit_predictions[0], 
                                         pytorch_predictions[0], tensorflow_predictions[0])
             if position_types[0] == "SHORT":
                 if indicatorDataObj[2].price < tp_prices[0]:
@@ -152,14 +152,14 @@ while True:
                     handle_position_closure(0)
                     save_position_infos("./data/dataset-mera-0.csv", "SHORT", indicatorDataObj[0])
                     save_position_result("./data/result-mera-0.csv", indicatorDataObj[0].date , "SHORT", 
-                                        overall_predictions[0], scikit_predictions[0], 
+                                        position_types[0], overall_predictions[0], scikit_predictions[0], 
                                         pytorch_predictions[0], tensorflow_predictions[0])
                 elif indicatorDataObj[2].price > sl_prices[0]:
                     print("Your Position (SHORT 0) is closed with SL")
                     handle_position_closure(0)
                     save_position_infos("./data/dataset-mera-0.csv", "LONG", indicatorDataObj[0])
                     save_position_result("./data/result-mera-0.csv", indicatorDataObj[0].date , "LONG", 
-                                        overall_predictions[0], scikit_predictions[0], 
+                                        position_types[0], overall_predictions[0], scikit_predictions[0], 
                                         pytorch_predictions[0], tensorflow_predictions[0])
         if not (position_types[1] == None):
             if position_types[1] == "LONG":
@@ -168,14 +168,14 @@ while True:
                     handle_position_closure(1)
                     save_position_infos("./data/dataset-mera-1.csv", "LONG", indicatorDataObj[1])
                     save_position_result("./data/result-mera-1.csv", indicatorDataObj[1].date , "LONG", 
-                                        overall_predictions[1], scikit_predictions[1], 
+                                        position_types[1], overall_predictions[1], scikit_predictions[1], 
                                         pytorch_predictions[1], tensorflow_predictions[1])
                 elif indicatorDataObj[2].price < sl_prices[1]:
                     print("Your Position (LONG 1) is closed with SL")
                     handle_position_closure(1)
                     save_position_infos("./data/dataset-mera-1.csv", "SHORT", indicatorDataObj[1])
                     save_position_result("./data/result-mera-1.csv", indicatorDataObj[1].date , "SHORT", 
-                                        overall_predictions[1], scikit_predictions[1], 
+                                        position_types[1], overall_predictions[1], scikit_predictions[1], 
                                         pytorch_predictions[1], tensorflow_predictions[1])
             if position_types[1] == "SHORT":
                 if indicatorDataObj[2].price < tp_prices[1]:
@@ -183,14 +183,14 @@ while True:
                     handle_position_closure(1)
                     save_position_infos("./data/dataset-mera-1.csv", "SHORT", indicatorDataObj[1])
                     save_position_result("./data/result-mera-1.csv", indicatorDataObj[1].date , "SHORT", 
-                                        overall_predictions[1], scikit_predictions[1], 
+                                        position_types[1], overall_predictions[1], scikit_predictions[1], 
                                         pytorch_predictions[1], tensorflow_predictions[1])
                 elif indicatorDataObj[2].price > sl_prices[1]:
                     print("Your Position (SHORT 1) is closed with SL")
                     handle_position_closure(1)
                     save_position_infos("./data/dataset-mera-1.csv", "LONG", indicatorDataObj[1])
                     save_position_result("./data/result-mera-1.csv", indicatorDataObj[1].date , "LONG", 
-                                        overall_predictions[1], scikit_predictions[1], 
+                                        position_types[1], overall_predictions[1], scikit_predictions[1], 
                                         pytorch_predictions[1], tensorflow_predictions[1])
     except:
         print("Some kind of error has occured")

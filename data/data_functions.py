@@ -12,8 +12,8 @@ def save_position_infos(file_path, state, indicatorDataObj):
         writer = csv.writer(file)
         writer.writerow(row)
 
-def save_position_result(file_path, date, position_result, vote_result, scikit_prediction, pytorch_prediction, tensor_prediction):
-    row = [date, position_result, vote_result, scikit_prediction, pytorch_prediction, tensor_prediction]
+def save_position_result(file_path, date, position_result, position_type, vote_result, scikit_prediction, pytorch_prediction, tensor_prediction):
+    row = [date, position_result, position_type,vote_result, scikit_prediction, pytorch_prediction, tensor_prediction]
     with open(file_path, 'a', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(row)
