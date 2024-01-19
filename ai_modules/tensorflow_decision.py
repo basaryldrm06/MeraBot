@@ -1,49 +1,58 @@
+import silence_tensorflow.auto
+import tensorflow as tf
+from tensorflow.keras.models import Sequential
+from tensorflow.keras.layers import Dense
+from sklearn.model_selection import train_test_split
 import numpy as np
 import pandas as pd
-import tensorflow as tf
-import warnings
 
-def predict_state_tensorflow(file_path, indicatorDataObj):
+def predict(file_path, dataObj):
     try:
-        with warnings.catch_warnings():
-            warnings.simplefilter("ignore")
+        df = pd.read_csv(file_path)
 
-            df = pd.read_csv(file_path)
-            columns = ["date", "price", "macd_12", "macd_26", "ema_100", "rsi_6"]
-            for i in range(0, 15):
-                columns.extend([
-                    f"opening_{i}", f"closing_{i}",
-                    f"min_{i}", f"max_{i}"
-                ])
+        if df.empty:
+            raise ValueError("No data in csv file")
 
-            X = df[columns].values
-            y = df['state'].values
-
-            # One-hot encode the labels
-            y_onehot = tf.keras.utils.to_categorical(y, num_classes=2)
-
-            model = tf.keras.Sequential([
-                tf.keras.layers.Dense(64, activation='relu', input_shape=(X.shape[1],)),
-                tf.keras.layers.Dense(2, activation='softmax')  # Two classes for binary classification
+        columns = ["price", "macd_12", "macd_26", "ema_100", "rsi_6"]
+        for i in range(0, 15):
+            columns.extend([
+                f"opening_{i}", f"closing_{i}",
+                f"min_{i}", f"max_{i}"
             ])
 
-            model.compile(optimizer='adam', loss='categorical_crossentropy', metrics=['accuracy'])
-            model.fit(X, y_onehot, epochs=10, batch_size=32, verbose=0)
+        X = df[columns].values
+        y = df['state'].values
 
-            features = [indicatorDataObj.date, indicatorDataObj.price, 
-                        indicatorDataObj.macd_12, indicatorDataObj.macd_26, 
-                        indicatorDataObj.ema_100, indicatorDataObj.rsi_6]
+        y = np.where(y == 'LONG', 1, 0)
+
+        X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.2, random_state=42)
+
+        model = Sequential()
+        model.add(Dense(32, activation='relu', input_dim=X_train.shape[1]))
+        model.add(Dense(1, activation='sigmoid'))
+        model.compile(optimizer='adam', loss='binary_crossentropy', metrics=['accuracy'])
+
+        model.fit(X_train, y_train, epochs=10, batch_size=32, validation_split=0.2, verbose=0)
+        _, test_acc = model.evaluate(X_test, y_test, verbose=0)
+
+        def predict(indicatorDataObj):
+            features = [float(indicatorDataObj.price),
+                        float(indicatorDataObj.macd_12), float(indicatorDataObj.macd_26),
+                        float(indicatorDataObj.ema_100), float(indicatorDataObj.rsi_6)]
+
             for bar in indicatorDataObj.bar_list:
-                for element in bar: 
-                    features.append(element)
+                for element in bar:
+                    features.append(float(element))
 
-            features = np.array([features])
+            new_data = np.array([features])
+            prediction_prob = model.predict(new_data, verbose=0)
+            prediction = "LONG" if prediction_prob > 0.5 else "SHORT"
 
-            predicted_prob = model.predict(features)[0, 1]  # Probability for the "LONG" class
-            predicted_state = "LONG" if predicted_prob >= 0.5 else "SHORT"
+            return prediction
 
-            return predicted_state
+        prediction = predict(dataObj)
+        return test_acc, prediction
 
     except Exception as e:
-        print("Error:", str(e))
-        return None
+        print(f"WARNING: {e}")
+        return None, "LONG"
