@@ -50,7 +50,7 @@ When certain conditions are met. AI Libraries are used for confirmation.
 You can check out this video for MACD Strategies.
 
 <div align="center">
-    <img src="./readme_src/strategy.jpg" alt="Project Cover" width="700">
+    <a href="https://www.youtube.com/watch?v=Gs-_tleyz3Q&ab_channel=TRADEEMPIRE"><img src="./readme_src/strategy.jpg" alt="Project Cover" width="700"> </a>
 </div>
 
 ## Technologies Used
