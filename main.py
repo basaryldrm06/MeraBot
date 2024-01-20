@@ -64,6 +64,14 @@ def close_position(isTP):
         
 print_with_color("cyan", "MeraBot is running...")
 
+# initialization
+indicator_check = fetch_all_indicators(client)
+if (indicator_check.price < indicator_check.ema_100):
+    do_not_enter_long = True
+else:
+    do_not_enter_short = True
+
+
 while True:
     try:
         sleep(10)
