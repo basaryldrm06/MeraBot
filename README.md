@@ -53,15 +53,15 @@ You can check out this video for MACD Strategies.
 
 ## Technologies Used
 
-1. **Python:** The primary programming language driving SageBot's functionality and logic.
+1. **Python:** The primary programming language driving MeraBot's functionality and logic.
 
-2. **TensorFlow & PyTorch & Scikit Libraries:** These libraries ensure the validation of the accuracy of the algorithm's indicated transaction type.
+2. **TensorFlow, PyTorch and Scikit Libraries:** These libraries ensure the validation of the accuracy of the algorithm's indicated transaction type.
 
-3. **Binance API:** SageBot connects seamlessly to the Binance cryptocurrency exchange through its API, allowing real-time access to market data and execution of trades.
+3. **Binance API:** MeraBot connects seamlessly to the Binance cryptocurrency exchange through its API, allowing real-time access to market data and execution of trades.
 
-4. **TA-Lib Library:** Technical Analysis Library provides essential functions for technical analysis of financial markets, aiding SageBot in evaluating market indicators.
+4. **TA-Lib Library:** Technical Analysis Library provides essential functions for technical analysis of financial markets, aiding MeraBot in evaluating market indicators.
 
-5. **ChatGPT:** ChatGPT, powered by OpenAI, is employed for code assistance, aiding developers in coding tasks and providing guidance on library usage. Additionally, ChatGPT is utilized for crafting informative log messages, enhancing communication and facilitating a smoother understanding of SageBot's operations.
+5. **ChatGPT:** ChatGPT, powered by OpenAI, is employed for code assistance, aiding developers in coding tasks and providing guidance on library usage. Additionally, ChatGPT is utilized for crafting informative log messages, enhancing communication and facilitating a smoother understanding of MeraBot's operations.
 
 <div align="center">
     <p> 
@@ -85,12 +85,12 @@ To install Project, follow these simple steps:
 2. **Cloning the Project into your local:**
     Go to the directory where you want to download the project using 'cd', and then type the following command
     ```bash
-    $git clone https://github.com/basaryldrm06/SageBot
+    $git clone https://github.com/basaryldrm06/MeraBot
     ```
 3. **Install Dependencies**
     Enter these commands in sequence.
     ```bash
-    $cd SageBot
+    $cd MeraBot
     $pip install -r requirements.txt
     ```
 
@@ -116,7 +116,7 @@ You can use the default values for other sections or customize them based on you
 Once you have finished editing your settings, you will be ready to run the program.
 
 ## Running the Bot
-If you have completed the previous steps, SageBot is now ready to run. Start it by entering the following command:
+If you have completed the previous steps, MeraBot is now ready to run. Start it by entering the following command:
 
  ```bash
 $python main.py
@@ -129,7 +129,7 @@ After running the command, you should see a screen similar to the one below.
 </div>
 
 ## Warnings
-This trading bot is developed solely for experimental purposes, aiming to explore the viability and effectiveness of using deep learning in financial transactions. It is a completely experimental project shared as open-source to serve as an example for the development of trading bots.
+This trading bot has been developed solely for experimental purposes, with the goal of exploring the viability and effectiveness of combining algorithmic decision-making with deep learning in financial transactions. It is a completely experimental project shared as open-source to serve as an example for the development of trading bots.
 
 Any profits or losses incurred using this bot are entirely your responsibility. Please refrain from using the program if you are not familiar with its functionalities. Understand that engaging in financial transactions carries inherent risks, and it's crucial to exercise caution and knowledge when utilizing this bot.
 
@@ -140,11 +140,11 @@ Any profits or losses incurred using this bot are entirely your responsibility. 
 ## Last Words from Developer
 I hope you find this project useful and enjoyable.
 
+Artificial intelligence is one of the most significant inventions of our era, with a wide range of applications. While working on this project, my goal was to explore the extent to which the power of artificial intelligence could be applied to financial transactions. For this reason, this project was particularly intriguing and enjoyable for me.
+
 Feel free to follow my account for more projects like this and stay updated on upcoming releases. Don't forget to star and watch this project to receive notifications about future updates and improvements.
 
-Artificial intelligence is one of the most significant inventions of our era, with a wide range of applications. While working on this project, my idea was to explore the extent to which the power of artificial intelligence could be applied to financial transactions. For this reason, this project was particularly intriguing and enjoyable for me.
-
-If you have any innovative ideas in mind for trading bots or AI, feel free to reach out to me through the links on my profile. We can collaborate and develop something together.
+If you have any innovative ideas in mind for trading bots or AI, You can reach out to me through the links on my profile. We can collaborate and develop something together.
 
 Thank you for your interest and support! 🚀
 
