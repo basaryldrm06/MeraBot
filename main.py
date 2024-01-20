@@ -2,17 +2,19 @@ from binance.client import Client
 from binanceAPI.position_utilities import enter_long, enter_short
 from config import api_key, secret_key
 from indicators.fetch_all_indicators import fetch_all_indicators
-from data.io_utilities import print_with_color
+from data.io_utilities import print_with_color, calculateWR, print_position_message
 from data.IndicatorData import IndicatorData
-from indicators.bar_prices import get_historical_data
-from data import io_utilities
 from time import sleep
 from ai_modules.ai_voting import vote
-from data.data_functions import save_position_infos, save_position_result
+from data.data_functions import save_position, save_result
 import copy
 
 # BinanceAPI Connection
 client = Client(api_key, secret_key)
+
+# csv path initialization
+csv_path_position = "./data/mera_result.csv"
+csv_path_result = "./data/mera_dataset.csv"
 
 indicator_position = None
 indicator_check = None
@@ -23,6 +25,43 @@ do_not_enter_long = False
 do_not_enter_short = False
 on_long = False
 on_short = False
+
+# Global Functions
+def close_position(isTP):
+    global on_long
+    global on_short
+    global tp_count
+    global sl_count
+    global indicator_position
+    global prediction
+    global csv_path_position
+    global csv_path_result
+
+    state = "" 
+    
+    if (on_long and isTP) or (on_short and (not isTP)): 
+        state = "LONG"
+    elif (on_long and (not isTP)) or (on_short and isTP):
+        state = "SHORT"
+
+    save_position(csv_path_position, state, indicator_position)
+    save_result(csv_path_result, indicator_position.date, state, prediction)
+
+    on_long = False
+    on_short = False
+
+    if isTP:
+        tp_count = tp_count + 1
+        print_with_color("green", "Position closed with TP")
+        print_with_color("yellow", "TP: " + str(tp_count) + " SL: " + 
+              str(sl_count) + " Win-Rate: " + calculateWR(tp_count, sl_count))
+    else:
+        sl_count = sl_count + 1
+        print_with_color("red", "Position closed with SL")
+        print_with_color("yellow", "TP: " + str(tp_count) + " SL: " + 
+            str(sl_count) + " Win-Rate: " + calculateWR(tp_count, sl_count))
+        
+print_with_color("cyan", "MeraBot is running...")
 
 while True:
     try:
@@ -37,6 +76,7 @@ while True:
                 do_not_enter_long = True
                 prediction = "LONG"
                 if prediction == "LONG":
+                    indicator_position = copy.deepcopy(indicator_check)
                     tp_price, sl_price = enter_long(client)
 
             elif (indicator_check.macd_12 < indicator_check.macd_26) and \
@@ -46,6 +86,7 @@ while True:
                 do_not_enter_short = True
                 prediction = "SHORT"
                 if prediction == "SHORT":
+                    indicator_position = copy.deepcopy(indicator_check)
                     tp_price, sl_price = enter_short(client)
 
         else:
