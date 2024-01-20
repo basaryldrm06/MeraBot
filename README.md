@@ -16,8 +16,6 @@
 - [Configuration](#configuration)
 
 - [Running the bot](#running-the-bot)
-
-- [Editing the Code](#editing-the-code)
  
 - [Warnings](#warnings) 
 
@@ -129,14 +127,6 @@ After running the command, you should see a screen similar to the one below.
 <div align="center">
     <img src="./readme_src/running.png" alt="Running Bot">
 </div>
-
-## Editing the Code
-Feel free to tailor the project to your specific preferences and requirements. The code has been meticulously documented to provide clear explanations of each component, empowering you to make effortless customizations. Whether you want to tweak parameters, integrate additional features, or adapt the functionality to suit your needs, the codebase is designed to be intuitive and easily adaptable. 
-
-<div align="center">
-    <img src="./readme_src/code.png" alt="Code Example">
-</div>
-
 
 ## Warnings
 This trading bot is developed solely for experimental purposes, aiming to explore the viability and effectiveness of using deep learning in financial transactions. It is a completely experimental project shared as open-source to serve as an example for the development of trading bots.
