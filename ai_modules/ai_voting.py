@@ -4,11 +4,8 @@ from ai_modules.pytorch_decision import predict_state_pytorch
 
 def vote(file_path, indicatorDataObj):
     count = 0
-    print("scikit is starting")
     scikit_result = predict_state_scikit(file_path, indicatorDataObj)
-    print("tensorflow is starting")
     tensorflow_result = predict_state_tensorflow(file_path, indicatorDataObj)
-    print("pytorch")
     pytorch_result = predict_state_pytorch(file_path, indicatorDataObj)
     
     if scikit_result == "LONG":

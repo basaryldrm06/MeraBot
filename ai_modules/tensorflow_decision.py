@@ -6,7 +6,7 @@ from sklearn.model_selection import train_test_split
 import numpy as np
 import pandas as pd
 
-def predict(file_path, dataObj):
+def predict_state_tensorflow(file_path, dataObj):
     try:
         df = pd.read_csv(file_path)
 

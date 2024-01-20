@@ -13,8 +13,8 @@ import copy
 client = Client(api_key, secret_key)
 
 # csv path initialization
-csv_path_position = "./data/mera_result.csv"
-csv_path_result = "./data/mera_dataset.csv"
+csv_path_position = "./data/mera_dataset.csv"
+csv_path_result = "./data/mera_result.csv"
 
 indicator_position = None
 indicator_check = None
@@ -25,6 +25,7 @@ do_not_enter_long = False
 do_not_enter_short = False
 on_long = False
 on_short = False
+predictions = [None, None, None, None]
 
 # Global Functions
 def close_position(isTP):
@@ -33,7 +34,7 @@ def close_position(isTP):
     global tp_count
     global sl_count
     global indicator_position
-    global prediction
+    global predictions
     global csv_path_position
     global csv_path_result
 
@@ -74,8 +75,10 @@ while True:
                 (indicator_check.price < indicator_check.ema_100):
                 do_not_enter_short = False
                 do_not_enter_long = True
-                prediction = "LONG"
-                if prediction == "LONG":
+                indicator_position = indicator_check
+                predictions[0], predictions[1], predictions[2], predictions[3] = \
+                    vote(csv_path_position, indicator_check)
+                if predictions[3] == "LONG":
                     indicator_position = copy.deepcopy(indicator_check)
                     tp_price, sl_price = enter_long(client)
 
@@ -84,8 +87,9 @@ while True:
                 (indicator_check.price > indicator_check.ema_100):
                 do_not_enter_long = False
                 do_not_enter_short = True
-                prediction = "SHORT"
-                if prediction == "SHORT":
+                predictions[0], predictions[1], predictions[2], predictions[3] = \
+                    vote(csv_path_position, indicator_check)
+                if predictions[3] == "SHORT":
                     indicator_position = copy.deepcopy(indicator_check)
                     tp_price, sl_price = enter_short(client)
 
