@@ -1,6 +1,7 @@
-talib
 pandas
-csv
-sklearn
 tensorflow
 torch
+scikit-learn
+numpy
+python-binance
+TA-Lib
