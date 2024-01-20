@@ -68,9 +68,10 @@ print_with_color("cyan", "MeraBot is running...")
 indicator_check = fetch_all_indicators(client)
 if (indicator_check.price < indicator_check.ema_100):
     do_not_enter_long = True
+    print_with_color("yellow", "LONG BLOCKED")
 else:
     do_not_enter_short = True
-
+    print_with_color("yellow", "SHORT BLOCKED")
 
 while True:
     try:
