@@ -19,6 +19,8 @@ csv_path_result = "./data/mera_result.csv"
 indicator_position = None
 indicator_check = None
 
+tp_count = 0
+sl_count = 0
 tp_price = 0
 sl_price = 0
 do_not_enter_long = False
@@ -46,7 +48,7 @@ def close_position(isTP):
         state = "SHORT"
 
     save_position(csv_path_position, state, indicator_position)
-    save_result(csv_path_result, indicator_position.date, state, prediction)
+    save_result(csv_path_result, indicator_position.date, state, predictions)
 
     on_long = False
     on_short = False
@@ -88,8 +90,15 @@ while True:
                 predictions[0], predictions[1], predictions[2], predictions[3] = \
                     vote(csv_path_position, indicator_check)
                 if predictions[3] == "LONG":
+                    on_long = True
                     indicator_position = copy.deepcopy(indicator_check)
                     tp_price, sl_price = enter_long(client)
+                    print_with_color("yellow", "Entered " + predictions[3] + " Current: " + 
+                             str(round(indicator_position.price, 2)) + " TP_PRICE: " + str(round(tp_price, 2)) + 
+                             " SL_PRICE: " + str(round(sl_price, 2)))
+                    print_position_message(indicator_position, predictions[3])
+                else:
+                    print_with_color("yellow", "LONG is Blocked")
 
             elif (indicator_check.macd_12 < indicator_check.macd_26) and \
                 (indicator_check.macd_12 > 0) and (indicator_check.rsi_6 < 50) and \
@@ -99,8 +108,11 @@ while True:
                 predictions[0], predictions[1], predictions[2], predictions[3] = \
                     vote(csv_path_position, indicator_check)
                 if predictions[3] == "SHORT":
+                    on_short = True
                     indicator_position = copy.deepcopy(indicator_check)
                     tp_price, sl_price = enter_short(client)
+                else:
+                    print_with_color("yellow", "SHORT is Blocked")
 
         else:
             if (on_long and  indicator_check.price > tp_price) or \

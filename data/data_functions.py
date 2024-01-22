@@ -13,7 +13,7 @@ def save_position(file_path, state, indicatorDataObj):
         writer.writerow(row)
 
 def save_result(file_path, date, position_result, prediction):
-    row = [date, position_result, prediction]
+    row = [date, position_result, prediction[3],prediction[0], prediction[1], prediction[2]]
     with open(file_path, 'a', newline='') as file:
         writer = csv.writer(file)
         writer.writerow(row)

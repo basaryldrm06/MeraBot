@@ -3,6 +3,7 @@ from sklearn.model_selection import train_test_split
 from sklearn.ensemble import RandomForestClassifier
 from sklearn.metrics import accuracy_score
 import warnings
+import numpy as np
 
 def predict_state_scikit(file_path, indicatorDataObj):
     try:
@@ -10,7 +11,7 @@ def predict_state_scikit(file_path, indicatorDataObj):
             warnings.simplefilter("ignore")
 
             df = pd.read_csv(file_path)
-            columns = ["date", "price", "macd_12", "macd_26", "ema_100", "rsi_6"]
+            columns = ["price", "macd_12", "macd_26", "ema_100", "rsi_6"]
             for i in range(0, 15):
                 columns.extend([
                     f"opening_{i}", f"closing_{i}",
@@ -23,20 +24,20 @@ def predict_state_scikit(file_path, indicatorDataObj):
             clf = RandomForestClassifier()
             clf.fit(X, y)
 
-            features = [indicatorDataObj.date, indicatorDataObj.price, 
+            features = [indicatorDataObj.price, 
                         indicatorDataObj.macd_12, indicatorDataObj.macd_26, 
                         indicatorDataObj.ema_100, indicatorDataObj.rsi_6]
             for bar in indicatorDataObj.bar_list:
                 for element in bar: 
                     features.append(element)
-                
-            predicted_state = clf.predict(features)
+            features_2d = np.array(features).reshape(1, -1)    
+            predicted_state = clf.predict(features_2d)
 
             return predicted_state[0]
 
     except Exception as e:
-        print("Hata:", str(e))
-        return None
+        print("WARNING:", str(e))
+        return "LONG"
 
 # TODO: Update here
 def test_model(file_path):
@@ -46,7 +47,7 @@ def test_model(file_path):
         columns = []
         for i in range(0, 15):
             columns.extend([
-                f"date_{i}", f"price_{i}",
+                f"price_{i}",
                 f"macd_{i}_12", f"macd_{i}_26",
                 f"ema_{i}_100", f"rsi_{i}_6"
             ])
@@ -65,4 +66,4 @@ def test_model(file_path):
         return  "%" + str(accuracy * 100)
 
     except Exception as e:
-        return "Hata:"+ str(e)
+        return "WARNING:"+ str(e)

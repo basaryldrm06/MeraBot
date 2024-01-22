@@ -1,1 +1,4 @@
-date,result,position,prediction,scikit,pytorch,tensorflow
+date,result,position,prediction,scikit,tensorflow,pytorch
+2024-01-23 00:50:29,LONG,R,S,H,O
+2024-01-23 00:52:10,LONG,G,L,O,N
+2024-01-23 00:55:24,LONG,SHORT,LONG,SHORT,SHORT

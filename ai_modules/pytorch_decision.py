@@ -26,7 +26,7 @@ def predict_state_pytorch(file_path, indicatorDataObj):
             warnings.simplefilter("ignore")
 
             df = pd.read_csv(file_path)
-            columns = ["date", "price", "macd_12", "macd_26", "ema_100", "rsi_6"]
+            columns = ["price", "macd_12", "macd_26", "ema_100", "rsi_6"]
             for i in range(0, 15):
                 columns.extend([
                     f"opening_{i}", f"closing_{i}",
@@ -41,7 +41,7 @@ def predict_state_pytorch(file_path, indicatorDataObj):
             X_tensor = torch.tensor(X_scaled, dtype=torch.float32)
             model = SimpleModel(input_size=X.shape[1])
 
-            features = [indicatorDataObj.date, indicatorDataObj.price, 
+            features = [indicatorDataObj.price, 
                         indicatorDataObj.macd_12, indicatorDataObj.macd_26, 
                         indicatorDataObj.ema_100, indicatorDataObj.rsi_6]
             for bar in indicatorDataObj.bar_list:
@@ -58,5 +58,5 @@ def predict_state_pytorch(file_path, indicatorDataObj):
             return predicted_state
 
     except Exception as e:
-        print("Error:", str(e))
-        return None
+        print("WARNING:", str(e))
+        return "LONG"
