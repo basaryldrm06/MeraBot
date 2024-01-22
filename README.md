@@ -7,7 +7,7 @@
 
 - [Description](#description)
 
-- [How It Works?](#howitworks?)
+- [How It Works?](#how-it-works)
 
 - [Technologies Used](#technologies-used)
 
