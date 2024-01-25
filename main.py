@@ -81,7 +81,7 @@ while True:
         indicator_check = fetch_all_indicators(client)
 
         if not (on_long or on_short):
-            if (indicator_check.macd_12 > indicator_check.macd_26) and \
+            if (not do_not_enter_long) and (indicator_check.macd_12 > indicator_check.macd_26) and \
                 (indicator_check.macd_12 < 0) and (indicator_check.rsi_6 > 50) and \
                 (indicator_check.price < indicator_check.ema_100):
                 do_not_enter_short = False
@@ -100,7 +100,7 @@ while True:
                 else:
                     print_with_color("yellow", "LONG is Blocked")
 
-            elif (indicator_check.macd_12 < indicator_check.macd_26) and \
+            elif (not do_not_enter_short) and (indicator_check.macd_12 < indicator_check.macd_26) and \
                 (indicator_check.macd_12 > 0) and (indicator_check.rsi_6 < 50) and \
                 (indicator_check.price > indicator_check.ema_100):
                 do_not_enter_long = False
