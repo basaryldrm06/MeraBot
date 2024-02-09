@@ -7,7 +7,7 @@
 
 - [Description](#description)
 
-- [How It Works?](#how-it-works)
+- [How does it work?](#how-does-it-work)
 
 - [Technologies Used](#technologies-used)
 
@@ -28,7 +28,7 @@ MeraBot stands as an experimental trading bot, functioning based on a specific a
     <img src="./readme_src/description.jpg" alt="Project Cover" width="400">
 </div>
 
-## How It Works?
+## How does it work?
 MERA stands for MACD-EMA-RSI-AI
 
 When certain conditions are met. AI Libraries are used for confirmation.
