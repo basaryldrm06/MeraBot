@@ -27,7 +27,7 @@ do_not_enter_long = False
 do_not_enter_short = False
 on_long = False
 on_short = False
-predictions = [None, None, None, None]
+prediction = None
 
 # Global Functions
 def close_position(isTP):
@@ -36,7 +36,7 @@ def close_position(isTP):
     global tp_count
     global sl_count
     global indicator_position
-    global predictions
+    global prediction
     global csv_path_position
     global csv_path_result
 
@@ -48,7 +48,7 @@ def close_position(isTP):
         state = "SHORT"
 
     save_position(csv_path_position, state, indicator_position)
-    save_result(csv_path_result, indicator_position.date, state, predictions)
+    save_result(csv_path_result, indicator_position.date, state, prediction)
 
     on_long = False
     on_short = False
