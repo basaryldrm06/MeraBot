@@ -1,11 +1,11 @@
 from binance.client import Client
+import silence_tensorflow.auto
 from binanceAPI.position_utilities import enter_long, enter_short
 from config import api_key, secret_key
 from indicators.fetch_all_indicators import fetch_all_indicators
 from data.io_utilities import print_with_color, calculateWR, print_position_message
-from data.IndicatorData import IndicatorData
+from tensorflow_utilities.tensor_model import TensorModel
 from time import sleep
-from ai_modules.ai_voting import vote
 from data.data_functions import save_position, save_result
 import copy
 
@@ -87,16 +87,15 @@ while True:
                 do_not_enter_short = False
                 do_not_enter_long = True
                 indicator_position = indicator_check
-                predictions[0], predictions[1], predictions[2], predictions[3] = \
-                    vote(csv_path_position, indicator_check)
-                if predictions[3] == "LONG":
+                accuracy, prediction = TensorModel(csv_path_position).process_model(indicator_check)
+                if prediction == "LONG":
                     on_long = True
                     indicator_position = copy.deepcopy(indicator_check)
                     tp_price, sl_price = enter_long(client)
-                    print_with_color("yellow", "Entered " + predictions[3] + " Current: " + 
+                    print_with_color("yellow", "Entered " + prediction + " Current: " + 
                              str(round(indicator_position.price, 2)) + " TP_PRICE: " + str(round(tp_price, 2)) + 
                              " SL_PRICE: " + str(round(sl_price, 2)))
-                    print_position_message(indicator_position, predictions[3])
+                    print_position_message(indicator_position, prediction)
                 else:
                     print_with_color("yellow", "LONG is Blocked")
 
@@ -105,12 +104,15 @@ while True:
                 (indicator_check.price > indicator_check.ema_100):
                 do_not_enter_long = False
                 do_not_enter_short = True
-                predictions[0], predictions[1], predictions[2], predictions[3] = \
-                    vote(csv_path_position, indicator_check)
-                if predictions[3] == "SHORT":
+                accuracy, prediction = TensorModel(csv_path_position).process_model(indicator_check)
+                if prediction == "SHORT":
                     on_short = True
                     indicator_position = copy.deepcopy(indicator_check)
                     tp_price, sl_price = enter_short(client)
+                    print_with_color("yellow", "Entered " + prediction + " Current: " + 
+                             str(round(indicator_position.price, 2)) + " TP_PRICE: " + str(round(tp_price, 2)) + 
+                             " SL_PRICE: " + str(round(sl_price, 2)))
+                    print_position_message(indicator_position, prediction)
                 else:
                     print_with_color("yellow", "SHORT is Blocked")
 
