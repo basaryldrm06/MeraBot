@@ -1,6 +1,5 @@
 pandas
 tensorflow
-torch
 scikit-learn
 numpy
 python-binance

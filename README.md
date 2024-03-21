@@ -55,7 +55,7 @@ You can check out this video for MACD Strategies.
 
 1. **Python:** The primary programming language driving MeraBot's functionality and logic.
 
-2. **TensorFlow, PyTorch and Scikit Libraries:** These libraries ensure the validation of the accuracy of the algorithm's indicated transaction type.
+2. **TensorFlow:** This library ensures the validation of the accuracy of the algorithm's indicated transaction type.
 
 3. **Binance API:** MeraBot connects seamlessly to the Binance cryptocurrency exchange through its API, allowing real-time access to market data and execution of trades.
 
@@ -67,8 +67,6 @@ You can check out this video for MACD Strategies.
     <p> 
         <a href="https://www.python.org/"> <img src="./readme_src/python-logo.png" width="75" alt="python"> </a>
         <a href="https://www.tensorflow.org/"> <img src="./readme_src/tensorflow-logo.png" width="75" alt="tensorflow"> </a>
-        <a href="https://pytorch.org/"> <img src="./readme_src/pytorch-logo.png" width="75" alt="tensorflow"> </a>
-        <a href="https://scikit-learn.org/stable/"> <img src="./readme_src/talib-logo.png" width="75" alt="scikit"> </a>
         <a href="https://github.com/sammchardy/python-binance"> <img src="./readme_src/binance-logo.png" width="75" alt="binanceAPI"> </a>
         <a href="https://pypi.org/project/TA-Lib/"> <img src="./readme_src/talib-logo.png" width="75" alt="TA-lib"> </a>
         <a href="https://chat.openai.com/chat" target="_blank"> <img src="./readme_src/chatgpt-logo.png" width="75" alt="python"> </a>
